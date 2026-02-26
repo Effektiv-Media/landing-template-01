@@ -1,3 +1,5 @@
+"use client"
+
 import { Phone, Mail, MapPin, Facebook, Instagram } from "lucide-react"
 
 const services = [

@@ -1,3 +1,5 @@
+"use client"
+
 import { Wrench, Users, Leaf, Award, BadgePercent, Layers } from "lucide-react"
 
 const features = [
