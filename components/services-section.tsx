@@ -4,67 +4,35 @@ import Image from "next/image"
 import { ArrowRight } from "lucide-react"
 
 const services = [
-  {
-    tag: "Förnya ditt hem",
-    title: "Renovering",
-    desc: "Vi utför renoveringar av alla storlekar – från badrum och kök till hela hus. Med precision och omsorg om detaljer förvandlar vi ditt hem till precis det du drömt om.",
-    image: "/images/service-renovation.jpg",
-    highlight: true,
-  },
-  {
-    tag: "Bygg nytt",
-    title: "Nybyggnation",
-    desc: "Vi följer dig från ritning till nyckelklar bostad. Vår erfarenhet av nybyggnation garanterar ett tryggt och smidigt byggprojekt av högsta kvalitet.",
-    image: "/images/service-construction.jpg",
-  },
-  {
-    tag: "Hjärtat av hemmet",
-    title: "Köksrenovering",
-    desc: "Drömmer du om ett nytt kök? Vi skapar skräddarsydda kökslösningar med fokus på funktion, estetik och hållbara material som håller länge.",
-    image: "/images/service-renovation.jpg",
-  },
-  {
-    tag: "En plats att njuta på",
-    title: "Altanbyggen",
-    desc: "Låt oss bygga den perfekta altan för dina utomhustillfällen. Vi använder hållbart trä och moderna konstruktioner som tål det svenska klimatet.",
-    image: "/images/service-deck.jpg",
-  },
-  {
-    tag: "Uppdatera & förbättra",
-    title: "Fönsterbyten",
-    desc: "Nya fönster förbättrar energieffektiviteten och komforten i ditt hem. Vi installerar moderna, energisnåla fönster av högsta kvalitet.",
-    image: "/images/service-construction.jpg",
-  },
-  {
-    tag: "Lägg nytt eller byt",
-    title: "Golvläggning",
-    desc: "Vi lägger alla typer av golv – parkett, laminat, klinker och mer. Resultatet blir alltid jämnt, hållbart och vackert med ett öga för detaljer.",
-    image: "/images/service-flooring.jpg",
-  },
+  { tag: "{{ service_1_tag }}", title: "{{ service_1_title }}", desc: "{{ service_1_desc }}", image: "{{ service_1_image }}" },
+  { tag: "{{ service_2_tag }}", title: "{{ service_2_title }}", desc: "{{ service_2_desc }}", image: "{{ service_2_image }}" },
+  { tag: "{{ service_3_tag }}", title: "{{ service_3_title }}", desc: "{{ service_3_desc }}", image: "{{ service_3_image }}" },
+  { tag: "{{ service_4_tag }}", title: "{{ service_4_title }}", desc: "{{ service_4_desc }}", image: "{{ service_4_image }}" },
+  { tag: "{{ service_5_tag }}", title: "{{ service_5_title }}", desc: "{{ service_5_desc }}", image: "{{ service_5_image }}" },
+  { tag: "{{ service_6_tag }}", title: "{{ service_6_title }}", desc: "{{ service_6_desc }}", image: "{{ service_6_image }}" },
 ]
 
 export default function ServicesSection() {
   const scrollToContact = () => {
-    document.querySelector("#kontakt")?.scrollIntoView({ behavior: "smooth" })
+    document.querySelector("#section-5")?.scrollIntoView({ behavior: "smooth" })
   }
 
   return (
-    <section id="tjanster" className="py-24 bg-background" aria-labelledby="services-heading">
+    <section id="section-3" className="py-24 bg-background" aria-labelledby="services-heading">
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-16">
           <span className="text-[var(--brand-amber)] text-sm uppercase tracking-[0.2em] font-medium font-sans">
-            Vad vi erbjuder
+            {"{{ services_eyebrow }}"}
           </span>
           <h2
             id="services-heading"
             className="font-serif text-3xl md:text-4xl font-bold text-[var(--brand-navy)] mt-3 mb-5 text-balance"
           >
-            Våra byggtjänster
+            {"{{ services_heading }}"}
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed font-sans text-pretty">
-            Oavsett om du behöver hjälp med ett litet renoveringsprojekt eller en fullständig nybyggnation
-            har vi expertisen och engagemanget för att leverera ett resultat du kan vara stolt över.
+            {"{{ services_subheading }}"}
           </p>
         </div>
 
@@ -75,14 +43,20 @@ export default function ServicesSection() {
               key={service.title}
               className="group rounded-xl overflow-hidden border border-border bg-card hover:shadow-xl transition-all duration-300 flex flex-col"
             >
-              <div className="relative h-52 overflow-hidden">
-                <Image
-                  src={service.image}
-                  alt={service.title}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                />
+              <div className="relative h-52 overflow-hidden bg-[var(--brand-surface)]">
+                {service.image && !service.image.startsWith("{{") ? (
+                  <Image
+                    src={service.image}
+                    alt={service.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center text-muted-foreground text-xs font-sans">
+                    {"{{ service_image }}"}
+                  </div>
+                )}
                 <div className="absolute inset-0 bg-[var(--brand-navy)]/40 group-hover:bg-[var(--brand-navy)]/20 transition-colors" />
                 <div className="absolute top-4 left-4">
                   <span className="px-3 py-1 bg-[var(--brand-amber)] text-[var(--brand-navy)] text-xs font-bold uppercase tracking-wider rounded-sm">
@@ -100,9 +74,9 @@ export default function ServicesSection() {
                 <button
                   onClick={scrollToContact}
                   className="mt-5 flex items-center gap-2 text-[var(--brand-amber)] font-semibold text-sm group/btn"
-                  aria-label={`Begär offert för ${service.title}`}
+                  aria-label={"{{ service_cta_aria_prefix }} " + service.title}
                 >
-                  <span className="group-hover/btn:underline">Begär offert</span>
+                  <span className="group-hover/btn:underline">{"{{ service_card_cta }}"}</span>
                   <ArrowRight
                     size={16}
                     className="group-hover/btn:translate-x-1 transition-transform"

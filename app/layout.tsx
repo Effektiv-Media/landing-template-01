@@ -16,13 +16,12 @@ const playfair = Playfair_Display({
 })
 
 export const metadata: Metadata = {
-  title: 'Lucas Bygger AB – Byggfirma & Snickare',
-  description:
-    'Lucas Bygger AB erbjuder professionella bygg- och snickeritjänster. Renovering, nybyggnation, köksrenovering, altanbyggen och mer. Kontakta oss för en kostnadsfri offert.',
-  keywords: 'byggfirma, snickare, renovering, nybyggnation, Lucas Bygger AB, byggtjänster',
+  title: '{{ site_title }}',
+  description: '{{ site_description }}',
+  keywords: '{{ site_keywords }}',
   openGraph: {
-    title: 'Lucas Bygger AB – Byggfirma & Snickare',
-    description: 'Professionella bygg- och snickeritjänster av högsta kvalitet.',
+    title: '{{ og_title }}',
+    description: '{{ og_description }}',
     type: 'website',
   },
 }

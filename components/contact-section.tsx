@@ -19,27 +19,26 @@ export default function ContactSection() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // In production, this would send to a backend API
+    // In production, connect this to a backend API or form service
     setSent(true)
   }
 
   return (
-    <section id="kontakt" className="py-24 bg-[var(--brand-surface)]" aria-labelledby="contact-heading">
+    <section id="section-5" className="py-24 bg-[var(--brand-surface)]" aria-labelledby="contact-heading">
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-16">
           <span className="text-[var(--brand-amber)] text-sm uppercase tracking-[0.2em] font-medium font-sans">
-            Kom igång idag
+            {"{{ contact_eyebrow }}"}
           </span>
           <h2
             id="contact-heading"
             className="font-serif text-3xl md:text-4xl font-bold text-[var(--brand-navy)] mt-3 mb-5 text-balance"
           >
-            Begär en kostnadsfri offert
+            {"{{ contact_heading }}"}
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto leading-relaxed font-sans text-pretty">
-            Fyll i formuläret nedan så återkommer vi med en offert inom 24 timmar – utan förpliktelser
-            eller dolda kostnader.
+            {"{{ contact_subheading }}"}
           </p>
         </div>
 
@@ -47,10 +46,9 @@ export default function ContactSection() {
           {/* Contact info panel */}
           <div className="lg:col-span-2">
             <div className="bg-[var(--brand-navy)] rounded-xl p-8 h-full text-white">
-              <h3 className="font-serif text-2xl font-bold mb-2">Kontaktuppgifter</h3>
+              <h3 className="font-serif text-2xl font-bold mb-2">{"{{ contact_info_heading }}"}</h3>
               <p className="text-white/60 text-sm leading-relaxed mb-8 font-sans">
-                Du kan också kontakta oss direkt via telefon eller e-post. Vi är tillgängliga vardagar
-                kl. 07:00–17:00.
+                {"{{ contact_info_subtext }}"}
               </p>
 
               <ul className="space-y-6" role="list">
@@ -59,9 +57,9 @@ export default function ContactSection() {
                     <Phone size={18} className="text-[var(--brand-amber)]" aria-hidden="true" />
                   </div>
                   <div>
-                    <div className="text-white/50 text-xs uppercase tracking-wider mb-1 font-sans">Telefon</div>
-                    <a href="tel:+46701234567" className="text-white font-medium hover:text-[var(--brand-amber)] transition-colors">
-                      070-123 45 67
+                    <div className="text-white/50 text-xs uppercase tracking-wider mb-1 font-sans">{"{{ contact_phone_label }}"}</div>
+                    <a href="tel:{{ phone_number }}" className="text-white font-medium hover:text-[var(--brand-amber)] transition-colors">
+                      {"{{ phone_number }}"}
                     </a>
                   </div>
                 </li>
@@ -70,9 +68,9 @@ export default function ContactSection() {
                     <Mail size={18} className="text-[var(--brand-amber)]" aria-hidden="true" />
                   </div>
                   <div>
-                    <div className="text-white/50 text-xs uppercase tracking-wider mb-1 font-sans">E-post</div>
-                    <a href="mailto:info@lucasbygger.se" className="text-white font-medium hover:text-[var(--brand-amber)] transition-colors">
-                      info@lucasbygger.se
+                    <div className="text-white/50 text-xs uppercase tracking-wider mb-1 font-sans">{"{{ contact_email_label }}"}</div>
+                    <a href="mailto:{{ email_address }}" className="text-white font-medium hover:text-[var(--brand-amber)] transition-colors">
+                      {"{{ email_address }}"}
                     </a>
                   </div>
                 </li>
@@ -81,8 +79,8 @@ export default function ContactSection() {
                     <MapPin size={18} className="text-[var(--brand-amber)]" aria-hidden="true" />
                   </div>
                   <div>
-                    <div className="text-white/50 text-xs uppercase tracking-wider mb-1 font-sans">Verksamhetsområde</div>
-                    <span className="text-white font-medium">Stockholmsregionen & omnejd</span>
+                    <div className="text-white/50 text-xs uppercase tracking-wider mb-1 font-sans">{"{{ contact_area_label }}"}</div>
+                    <span className="text-white font-medium">{"{{ service_area }}"}</span>
                   </div>
                 </li>
                 <li className="flex items-start gap-4">
@@ -90,49 +88,49 @@ export default function ContactSection() {
                     <Clock size={18} className="text-[var(--brand-amber)]" aria-hidden="true" />
                   </div>
                   <div>
-                    <div className="text-white/50 text-xs uppercase tracking-wider mb-1 font-sans">Öppettider</div>
-                    <span className="text-white font-medium">Mån–Fre: 07:00–17:00</span>
+                    <div className="text-white/50 text-xs uppercase tracking-wider mb-1 font-sans">{"{{ contact_hours_label }}"}</div>
+                    <span className="text-white font-medium">{"{{ opening_hours }}"}</span>
                   </div>
                 </li>
               </ul>
 
-              {/* ROT badge */}
+              {/* Info badge (e.g. ROT, certifications) */}
               <div className="mt-10 p-4 rounded-lg bg-[var(--brand-amber)]/10 border border-[var(--brand-amber)]/30">
                 <div className="text-[var(--brand-amber)] font-bold text-sm uppercase tracking-wider mb-1 font-sans">
-                  ROT-avdrag
+                  {"{{ contact_badge_title }}"}
                 </div>
                 <p className="text-white/70 text-xs leading-relaxed font-sans">
-                  Spara upp till 30% på arbetskostnaden – vi hanterar allt administrativt åt dig.
+                  {"{{ contact_badge_text }}"}
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Form */}
+          {/* Quote request form */}
           <div className="lg:col-span-3">
             <div className="bg-background rounded-xl border border-border p-8">
               {sent ? (
                 <div className="flex flex-col items-center justify-center py-12 text-center gap-4">
                   <CheckCircle2 size={56} className="text-[var(--brand-amber)]" aria-hidden="true" />
                   <h3 className="font-serif text-2xl font-bold text-[var(--brand-navy)]">
-                    Tack för ditt meddelande!
+                    {"{{ form_success_heading }}"}
                   </h3>
                   <p className="text-muted-foreground font-sans max-w-sm leading-relaxed">
-                    Vi har tagit emot din förfrågan och återkommer med en offert inom 24 timmar.
+                    {"{{ form_success_message }}"}
                   </p>
                   <button
                     onClick={() => { setSent(false); setForm({ name: "", phone: "", email: "", address: "", message: "" }) }}
                     className="mt-4 px-6 py-3 bg-[var(--brand-navy)] text-white font-semibold text-sm rounded hover:bg-[var(--brand-navy-light)] transition-colors"
                   >
-                    Skicka ny förfrågan
+                    {"{{ form_reset_button }}"}
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} noValidate aria-label="Offertformulär">
+                <form onSubmit={handleSubmit} noValidate aria-label="{{ form_aria_label }}">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
                     <div>
                       <label htmlFor="name" className="block text-sm font-semibold text-[var(--brand-navy)] mb-2 font-sans">
-                        Namn & Efternamn <span className="text-red-500" aria-hidden="true">*</span>
+                        {"{{ form_name_label }}"} <span className="text-red-500" aria-hidden="true">*</span>
                       </label>
                       <input
                         id="name"
@@ -141,13 +139,13 @@ export default function ContactSection() {
                         required
                         value={form.name}
                         onChange={handleChange}
-                        placeholder="Anna Andersson"
+                        placeholder="{{ form_name_placeholder }}"
                         className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[var(--brand-amber)] focus:border-transparent transition-all text-sm font-sans"
                       />
                     </div>
                     <div>
                       <label htmlFor="phone" className="block text-sm font-semibold text-[var(--brand-navy)] mb-2 font-sans">
-                        Telefonnummer <span className="text-red-500" aria-hidden="true">*</span>
+                        {"{{ form_phone_label }}"} <span className="text-red-500" aria-hidden="true">*</span>
                       </label>
                       <input
                         id="phone"
@@ -156,7 +154,7 @@ export default function ContactSection() {
                         required
                         value={form.phone}
                         onChange={handleChange}
-                        placeholder="070-123 45 67"
+                        placeholder="{{ form_phone_placeholder }}"
                         className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[var(--brand-amber)] focus:border-transparent transition-all text-sm font-sans"
                       />
                     </div>
@@ -165,7 +163,7 @@ export default function ContactSection() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
                     <div>
                       <label htmlFor="email" className="block text-sm font-semibold text-[var(--brand-navy)] mb-2 font-sans">
-                        E-postadress <span className="text-red-500" aria-hidden="true">*</span>
+                        {"{{ form_email_label }}"} <span className="text-red-500" aria-hidden="true">*</span>
                       </label>
                       <input
                         id="email"
@@ -174,13 +172,13 @@ export default function ContactSection() {
                         required
                         value={form.email}
                         onChange={handleChange}
-                        placeholder="anna@exempel.se"
+                        placeholder="{{ form_email_placeholder }}"
                         className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[var(--brand-amber)] focus:border-transparent transition-all text-sm font-sans"
                       />
                     </div>
                     <div>
                       <label htmlFor="address" className="block text-sm font-semibold text-[var(--brand-navy)] mb-2 font-sans">
-                        Adress
+                        {"{{ form_address_label }}"}
                       </label>
                       <input
                         id="address"
@@ -188,7 +186,7 @@ export default function ContactSection() {
                         type="text"
                         value={form.address}
                         onChange={handleChange}
-                        placeholder="Storgatan 1, Stockholm"
+                        placeholder="{{ form_address_placeholder }}"
                         className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[var(--brand-amber)] focus:border-transparent transition-all text-sm font-sans"
                       />
                     </div>
@@ -196,7 +194,7 @@ export default function ContactSection() {
 
                   <div className="mb-6">
                     <label htmlFor="message" className="block text-sm font-semibold text-[var(--brand-navy)] mb-2 font-sans">
-                      Beskriv ditt projekt <span className="text-red-500" aria-hidden="true">*</span>
+                      {"{{ form_message_label }}"} <span className="text-red-500" aria-hidden="true">*</span>
                     </label>
                     <textarea
                       id="message"
@@ -205,7 +203,7 @@ export default function ContactSection() {
                       rows={5}
                       value={form.message}
                       onChange={handleChange}
-                      placeholder="Beskriv vad du behöver hjälp med, storlek på projekt, önskad tidsram, etc..."
+                      placeholder="{{ form_message_placeholder }}"
                       className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-[var(--brand-amber)] focus:border-transparent transition-all resize-none text-sm font-sans"
                     />
                   </div>
@@ -215,11 +213,11 @@ export default function ContactSection() {
                     className="w-full py-4 bg-[var(--brand-navy)] text-white font-bold uppercase tracking-wider text-sm rounded-lg hover:bg-[var(--brand-navy-light)] transition-all flex items-center justify-center gap-3 group"
                   >
                     <Send size={16} aria-hidden="true" />
-                    Skicka förfrågan – Svar inom 24h
+                    {"{{ form_submit_button }}"}
                   </button>
 
                   <p className="text-xs text-muted-foreground text-center mt-4 font-sans">
-                    Kostnadsfri offert utan förpliktelser. Vi behandlar dina uppgifter konfidentiellt.
+                    {"{{ form_disclaimer }}"}
                   </p>
                 </form>
               )}

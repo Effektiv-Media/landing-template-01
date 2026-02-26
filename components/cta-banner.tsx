@@ -6,9 +6,9 @@ export default function CtaBanner() {
   return (
     <section
       className="relative py-20 bg-[var(--brand-navy)] overflow-hidden"
-      aria-label="Kontakta oss"
+      aria-label="{{ cta_banner_aria_label }}"
     >
-      {/* Decorative amber elements */}
+      {/* Decorative pattern */}
       <div
         className="absolute top-0 left-0 w-1/3 h-full opacity-5"
         style={{
@@ -22,28 +22,27 @@ export default function CtaBanner() {
 
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
         <span className="text-[var(--brand-amber)] text-sm uppercase tracking-[0.2em] font-medium font-sans">
-          Krångla inte
+          {"{{ cta_banner_eyebrow }}"}
         </span>
         <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-white mt-3 mb-5 text-balance">
-          Bara hållbara byggnationer!
+          {"{{ cta_banner_heading }}"}
         </h2>
         <p className="text-white/70 text-lg max-w-xl mx-auto leading-relaxed mb-10 font-sans text-pretty">
-          Har du ett byggprojekt på gång? Kontakta oss direkt så hjälper vi dig att komma igång
-          med en kostnadsfri konsultation och offert.
+          {"{{ cta_banner_subtext }}"}
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <button
-            onClick={() => document.querySelector("#kontakt")?.scrollIntoView({ behavior: "smooth" })}
+            onClick={() => document.querySelector("#section-5")?.scrollIntoView({ behavior: "smooth" })}
             className="px-8 py-4 bg-[var(--brand-amber)] text-[var(--brand-navy)] font-bold uppercase tracking-wider text-sm rounded hover:bg-[var(--brand-amber-light)] transition-all"
           >
-            Kostnadsfri offert
+            {"{{ cta_banner_primary_button }}"}
           </button>
           <a
-            href="tel:+46701234567"
+            href="tel:{{ phone_number }}"
             className="px-8 py-4 border-2 border-white/40 text-white font-bold uppercase tracking-wider text-sm rounded hover:border-white hover:bg-white/10 transition-all inline-flex items-center justify-center gap-2"
           >
             <Phone size={16} aria-hidden="true" />
-            Ring oss nu
+            {"{{ cta_banner_secondary_button }}"}
           </a>
         </div>
       </div>

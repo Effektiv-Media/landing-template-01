@@ -4,56 +4,37 @@ import { useState } from "react"
 import { Plus, Minus } from "lucide-react"
 
 const faqs = [
-  {
-    q: "Vilka typer av byggprojekt kan ni hjälpa till med?",
-    a: "Vi utför allt från mindre snickeriarbeten och renoveringar till större byggprojekt som nybyggnationer och ombyggnationer. Oavsett omfattning får du en erfaren snickare och byggfirma som tar ansvar hela vägen.",
-  },
-  {
-    q: "Arbetar ni med både privatpersoner och företag?",
-    a: "Ja, vi hjälper både privatpersoner och företag och anpassar alltid arbetet efter kundens behov och förutsättningar. Vi har lång erfarenhet av uppdrag för bostadsrättsföreningar, fastighetsägare och enskilda hushåll.",
-  },
-  {
-    q: "Kan ni hjälpa till från planering till färdigt resultat?",
-    a: "Absolut. Vi erbjuder kompletta byggtjänster där vi hanterar projektet från idé och planering till färdigt och godkänt resultat. Du behöver inte kontakta flera olika aktörer – vi tar hand om det hela.",
-  },
-  {
-    q: "Vad är ROT-avdrag och hur fungerar det?",
-    a: "ROT-avdraget är en skatteförmån som ger dig som kund rätt till 30% avdrag på arbetskostnaden för bygg- och renoveringstjänster. Vi hanterar allt administrativt åt dig, så du kan enkelt utnyttja denna förmån.",
-  },
-  {
-    q: "Hur lång tid tar ett typiskt renoveringsprojekt?",
-    a: "Tidsåtgången varierar beroende på projektets storlek och komplexitet. En badrumsrenovering tar vanligtvis 2–3 veckor, medan en större ombyggnation kan ta flera månader. Vi ger alltid en tydlig tidsplan i offerten.",
-  },
-  {
-    q: "Hur får jag en offert på mitt byggprojekt?",
-    a: "Det är enkelt – fyll i kontaktformuläret på vår sida eller ring oss direkt. Vi återkommer med en kostnadsfri offert inom 24 timmar, utan förpliktelser eller dolda kostnader.",
-  },
+  { q: "{{ faq_1_question }}", a: "{{ faq_1_answer }}" },
+  { q: "{{ faq_2_question }}", a: "{{ faq_2_answer }}" },
+  { q: "{{ faq_3_question }}", a: "{{ faq_3_answer }}" },
+  { q: "{{ faq_4_question }}", a: "{{ faq_4_answer }}" },
+  { q: "{{ faq_5_question }}", a: "{{ faq_5_answer }}" },
+  { q: "{{ faq_6_question }}", a: "{{ faq_6_answer }}" },
 ]
 
 export default function FaqSection() {
   const [open, setOpen] = useState<number | null>(null)
 
   return (
-    <section id="faq" className="py-24 bg-background" aria-labelledby="faq-heading">
+    <section id="section-4b" className="py-24 bg-background" aria-labelledby="faq-heading">
       <div className="max-w-4xl mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-16">
           <span className="text-[var(--brand-amber)] text-sm uppercase tracking-[0.2em] font-medium font-sans">
-            Vanliga frågor
+            {"{{ faq_eyebrow }}"}
           </span>
           <h2
             id="faq-heading"
             className="font-serif text-3xl md:text-4xl font-bold text-[var(--brand-navy)] mt-3 mb-5 text-balance"
           >
-            Undrar du något? Hitta ditt svar här
+            {"{{ faq_heading }}"}
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto leading-relaxed font-sans text-pretty">
-            Vi har samlat de vanligaste frågorna vi får från våra kunder. Hittar du inte svaret du
-            söker? Kontakta oss gärna direkt.
+            {"{{ faq_subheading }}"}
           </p>
         </div>
 
-        {/* FAQ list */}
+        {/* FAQ accordion */}
         <div className="space-y-3">
           {faqs.map((faq, i) => (
             <div
