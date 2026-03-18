@@ -5,6 +5,8 @@ import { Phone, Mail, MapPin, Clock, Send, CheckCircle2 } from "lucide-react"
 
 export default function ContactSection() {
   const [sent, setSent] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const [form, setForm] = useState({
     name: "",
     phone: "",
@@ -17,10 +19,40 @@ export default function ContactSection() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // In production, connect this to a backend API or form service
-    setSent(true)
+    setLoading(true)
+    setError(null)
+
+    try {
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || "{{ contact_form_error_message }}")
+      }
+
+      setSent(true)
+      setForm({
+        name: "",
+        phone: "",
+        email: "",
+        address: "",
+        message: "",
+      })
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "{{ contact_form_error_generic }}")
+      console.error("[v0] Form submission error:", err)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -208,12 +240,21 @@ export default function ContactSection() {
                     />
                   </div>
 
+                  {error && (
+                    <div className="mb-6 p-4 rounded-lg bg-red-50 border border-red-200">
+                      <p className="text-sm text-red-700 font-sans">
+                        {error}
+                      </p>
+                    </div>
+                  )}
+
                   <button
                     type="submit"
-                    className="w-full py-4 bg-[var(--brand-navy)] text-white font-bold uppercase tracking-wider text-sm rounded-lg hover:bg-[var(--brand-navy-light)] transition-all flex items-center justify-center gap-3 group"
+                    disabled={loading}
+                    className="w-full py-4 bg-[var(--brand-navy)] text-white font-bold uppercase tracking-wider text-sm rounded-lg hover:bg-[var(--brand-navy-light)] disabled:opacity-60 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-3 group"
                   >
                     <Send size={16} aria-hidden="true" />
-                    {"{{ form_submit_button }}"}
+                    {loading ? "{{ form_submitting }}" : "{{ form_submit_button }}"}
                   </button>
 
                   <p className="text-xs text-muted-foreground text-center mt-4 font-sans">
