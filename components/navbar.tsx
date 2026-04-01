@@ -29,11 +29,8 @@ export default function Navbar() {
   }
 
   return (
-    <motion.header
-      initial={{ y: -80, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-500 ${
         scrolled
           ? "bg-(--brand-navy)/95 backdrop-blur-md shadow-xl shadow-black/20 border-b border-white/5"
           : "bg-(--brand-navy)/80 backdrop-blur-sm"
@@ -64,13 +61,13 @@ export default function Navbar() {
         <a
           href="#section-1"
           onClick={(e) => { e.preventDefault(); handleNavClick("#section-1") }}
-          className="flex flex-col group"
+          className="flex flex-col group min-w-0 overflow-hidden"
           aria-label="{{ company_name }} – {{ nav_home_aria_label }}"
         >
-          <span className="font-serif text-xl font-bold text-white leading-tight tracking-tight group-hover:text-(--brand-amber) transition-colors duration-300">
+          <span className="font-serif text-xl font-bold text-white leading-tight tracking-tight group-hover:text-(--brand-amber) transition-colors duration-300 truncate">
             {"{{ company_name }}"}
           </span>
-          <span className="text-(--brand-amber) text-xs uppercase tracking-widest font-sans">
+          <span className="text-(--brand-amber) text-xs uppercase tracking-wider font-sans truncate">
             {"{{ company_tagline }}"}
           </span>
         </a>
@@ -156,6 +153,6 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.header>
+    </header>
   )
 }
