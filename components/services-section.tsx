@@ -1,7 +1,10 @@
 "use client"
 
+import { useRef } from "react"
 import Image from "next/image"
 import { ArrowRight } from "lucide-react"
+import { motion, useInView } from "framer-motion"
+import AnimateOnScroll from "@/components/animate-on-scroll"
 
 const services = [
   { tag: "{{ service_1_tag }}", title: "{{ service_1_title }}", desc: "{{ service_1_desc }}", image: "{{ service_1_image }}" },
@@ -13,6 +16,9 @@ const services = [
 ]
 
 export default function ServicesSection() {
+  const gridRef = useRef(null)
+  const gridInView = useInView(gridRef, { once: true, margin: "-80px" })
+
   const scrollToContact = () => {
     document.querySelector("#section-5")?.scrollIntoView({ behavior: "smooth" })
   }
@@ -21,29 +27,25 @@ export default function ServicesSection() {
     <section id="section-3" className="py-24 bg-background" aria-labelledby="services-heading">
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
-        <div className="text-center mb-16">
-          <span className="text-[var(--brand-amber)] text-sm uppercase tracking-[0.2em] font-medium font-sans">
-            {"{{ services_eyebrow }}"}
-          </span>
-          <h2
-            id="services-heading"
-            className="font-serif text-3xl md:text-4xl font-bold text-[var(--brand-navy)] mt-3 mb-5 text-balance"
-          >
+        <AnimateOnScroll className="text-center mb-16">
+          <span className="section-heading-eyebrow">{"{{ services_eyebrow }}"}</span>
+          <h2 id="services-heading" className="section-heading">
             {"{{ services_heading }}"}
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed font-sans text-pretty">
-            {"{{ services_subheading }}"}
-          </p>
-        </div>
+          <p className="section-subheading">{"{{ services_subheading }}"}</p>
+        </AnimateOnScroll>
 
         {/* Service cards grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service) => (
-            <article
+        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {services.map((service, i) => (
+            <motion.article
               key={service.title}
-              className="group rounded-xl overflow-hidden border border-border bg-card hover:shadow-xl transition-all duration-300 flex flex-col"
+              initial={{ opacity: 0, y: 36 }}
+              animate={gridInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: i * 0.09, ease: [0.22, 1, 0.36, 1] }}
+              className="group rounded-2xl overflow-hidden border border-border bg-card hover:shadow-2xl hover:shadow-black/10 hover:-translate-y-1 transition-all duration-300 flex flex-col"
             >
-              <div className="relative h-52 overflow-hidden bg-[var(--brand-surface)]">
+              <div className="relative h-56 overflow-hidden bg-(--brand-surface)">
                 {service.image && !service.image.startsWith("{{") ? (
                   <Image
                     src={service.image}
@@ -57,15 +59,16 @@ export default function ServicesSection() {
                     {"{{ service_image }}"}
                   </div>
                 )}
-                <div className="absolute inset-0 bg-[var(--brand-navy)]/40 group-hover:bg-[var(--brand-navy)]/20 transition-colors" />
+                {/* Gradient overlay */}
+                <div className="absolute inset-0 bg-linear-to-t from-(--brand-navy)/60 via-(--brand-navy)/20 to-transparent group-hover:from-(--brand-navy)/40 transition-colors duration-300" />
                 <div className="absolute top-4 left-4">
-                  <span className="px-3 py-1 bg-[var(--brand-amber)] text-[var(--brand-navy)] text-xs font-bold uppercase tracking-wider rounded-sm">
+                  <span className="px-3 py-1.5 bg-(--brand-amber) text-(--brand-navy) text-xs font-bold uppercase tracking-wider rounded-lg shadow-md">
                     {service.tag}
                   </span>
                 </div>
               </div>
               <div className="p-6 flex flex-col flex-1">
-                <h3 className="font-serif text-xl font-bold text-[var(--brand-navy)] mb-3">
+                <h3 className="font-serif text-xl font-bold text-(--brand-navy) mb-3">
                   {service.title}
                 </h3>
                 <p className="text-muted-foreground text-sm leading-relaxed font-sans flex-1">
@@ -73,18 +76,18 @@ export default function ServicesSection() {
                 </p>
                 <button
                   onClick={scrollToContact}
-                  className="mt-5 flex items-center gap-2 text-[var(--brand-amber)] font-semibold text-sm group/btn"
+                  className="mt-5 flex items-center gap-2 text-(--brand-amber) font-semibold text-sm group/btn w-fit"
                   aria-label={"{{ service_cta_aria_prefix }} " + service.title}
                 >
                   <span className="group-hover/btn:underline">{"{{ service_card_cta }}"}</span>
                   <ArrowRight
                     size={16}
-                    className="group-hover/btn:translate-x-1 transition-transform"
+                    className="group-hover/btn:translate-x-1 transition-transform duration-200"
                     aria-hidden="true"
                   />
                 </button>
               </div>
-            </article>
+            </motion.article>
           ))}
         </div>
       </div>

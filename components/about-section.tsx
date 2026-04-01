@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import { CheckCircle2 } from "lucide-react"
+import AnimateOnScroll from "@/components/animate-on-scroll"
 
 const highlights = [
   "{{ highlight_1 }}",
@@ -14,12 +15,12 @@ const highlights = [
 
 export default function AboutSection() {
   return (
-    <section id="section-4" className="py-24 bg-[var(--brand-surface)]" aria-labelledby="about-heading">
+    <section id="section-4" className="py-24 bg-(--brand-surface)" aria-labelledby="about-heading">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          {/* Image side */}
-          <div className="relative">
-            <div className="relative rounded-xl overflow-hidden aspect-[4/3] shadow-2xl bg-[var(--brand-surface)]">
+          {/* Image side — slides in from left */}
+          <AnimateOnScroll direction="left" className="relative">
+            <div className="relative rounded-2xl overflow-hidden aspect-4/3 shadow-2xl shadow-black/20">
               <Image
                 src="/images/about-bg.jpg"
                 alt="{{ about_image_alt }}"
@@ -27,26 +28,28 @@ export default function AboutSection() {
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
+              {/* Subtle tint */}
+              <div className="absolute inset-0 bg-(--brand-navy)/10" />
             </div>
+
             {/* Floating badge */}
-            <div className="absolute -bottom-6 -right-4 md:-right-8 bg-[var(--brand-amber)] rounded-xl p-6 shadow-xl max-w-[200px]">
-              <div className="font-serif text-4xl font-bold text-[var(--brand-navy)]">{"{{ about_badge_value }}"}</div>
-              <div className="text-[var(--brand-navy)] font-semibold text-sm mt-1 leading-tight">
+            <div className="absolute -bottom-6 -right-4 md:-right-8 bg-(--brand-amber) rounded-2xl p-6 shadow-2xl shadow-(--brand-amber)/30 max-w-50">
+              <div className="font-serif text-4xl font-bold text-(--brand-navy)">{"{{ about_badge_value }}"}</div>
+              <div className="text-(--brand-navy) font-semibold text-sm mt-1 leading-tight">
                 {"{{ about_badge_label }}"}
               </div>
             </div>
-            {/* Amber accent bar */}
-            <div className="absolute top-6 -left-4 w-2 h-24 bg-[var(--brand-amber)] rounded-full" aria-hidden="true" />
-          </div>
 
-          {/* Text side */}
-          <div>
-            <span className="text-[var(--brand-amber)] text-sm uppercase tracking-[0.2em] font-medium font-sans">
-              {"{{ about_eyebrow }}"}
-            </span>
+            {/* Amber accent bar */}
+            <div className="absolute top-6 -left-3 w-1.5 h-24 bg-linear-to-b from-(--brand-amber) to-(--brand-amber)/30 rounded-full" aria-hidden="true" />
+          </AnimateOnScroll>
+
+          {/* Text side — slides in from right */}
+          <AnimateOnScroll direction="right" delay={0.1}>
+            <span className="section-heading-eyebrow">{"{{ about_eyebrow }}"}</span>
             <h2
               id="about-heading"
-              className="font-serif text-3xl md:text-4xl font-bold text-[var(--brand-navy)] mt-3 mb-6 text-balance"
+              className="section-heading"
             >
               {"{{ about_heading }}"}
             </h2>
@@ -63,7 +66,7 @@ export default function AboutSection() {
                 <li key={item} className="flex items-start gap-3">
                   <CheckCircle2
                     size={18}
-                    className="text-[var(--brand-amber)] shrink-0 mt-0.5"
+                    className="text-(--brand-amber) shrink-0 mt-0.5"
                     aria-hidden="true"
                   />
                   <span className="text-foreground text-sm font-medium font-sans">{item}</span>
@@ -77,11 +80,11 @@ export default function AboutSection() {
                 e.preventDefault()
                 document.querySelector("#section-5")?.scrollIntoView({ behavior: "smooth" })
               }}
-              className="inline-flex items-center gap-2 px-8 py-4 bg-[var(--brand-navy)] text-white font-bold uppercase tracking-wider text-sm rounded hover:bg-[var(--brand-navy-light)] transition-all"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-(--brand-navy) text-white font-bold uppercase tracking-wider text-sm rounded-xl hover:bg-(--brand-navy-light) hover:shadow-xl hover:shadow-black/20 transition-all duration-300 hover:scale-105 active:scale-95"
             >
               {"{{ about_cta_button }}"}
             </a>
-          </div>
+          </AnimateOnScroll>
         </div>
       </div>
     </section>

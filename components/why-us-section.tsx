@@ -1,6 +1,9 @@
 "use client"
 
+import { useRef } from "react"
+import { motion, useInView } from "framer-motion"
 import { Wrench, Users, Leaf, Award, BadgePercent, Layers } from "lucide-react"
+import AnimateOnScroll from "@/components/animate-on-scroll"
 
 const features = [
   { icon: Wrench,       title: "{{ feature_1_title }}", desc: "{{ feature_1_desc }}" },
@@ -12,62 +15,68 @@ const features = [
 ]
 
 export default function WhyUsSection() {
+  const gridRef = useRef(null)
+  const gridInView = useInView(gridRef, { once: true, margin: "-80px" })
+
   return (
-    <section id="section-2" className="py-24 bg-[var(--brand-surface)]" aria-labelledby="why-us-heading">
+    <section id="section-2" className="py-24 bg-(--brand-surface)" aria-labelledby="why-us-heading">
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
-        <div className="text-center mb-16">
-          <span className="text-[var(--brand-amber)] text-sm uppercase tracking-[0.2em] font-medium font-sans">
-            {"{{ why_us_eyebrow }}"}
-          </span>
-          <h2
-            id="why-us-heading"
-            className="font-serif text-3xl md:text-4xl font-bold text-[var(--brand-navy)] mt-3 mb-5 text-balance"
-          >
+        <AnimateOnScroll className="text-center mb-16">
+          <span className="section-heading-eyebrow">{"{{ why_us_eyebrow }}"}</span>
+          <h2 id="why-us-heading" className="section-heading">
             {"{{ why_us_heading }}"}
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed font-sans text-pretty">
-            {"{{ why_us_subheading }}"}
-          </p>
-        </div>
+          <p className="section-subheading">{"{{ why_us_subheading }}"}</p>
+        </AnimateOnScroll>
 
         {/* Feature grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((f) => (
-            <div
+        <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {features.map((f, i) => (
+            <motion.div
               key={f.title}
-              className="bg-background rounded-lg p-8 border border-border hover:border-[var(--brand-amber)] hover:shadow-lg transition-all group"
+              initial={{ opacity: 0, y: 36 }}
+              animate={gridInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: i * 0.09, ease: [0.22, 1, 0.36, 1] }}
+              className="relative bg-background rounded-2xl p-8 border border-border hover:border-(--brand-amber)/40 hover:shadow-2xl hover:shadow-black/8 transition-all duration-300 group overflow-hidden"
             >
-              <div className="w-12 h-12 rounded-lg bg-[var(--brand-navy)] flex items-center justify-center mb-5 group-hover:bg-[var(--brand-amber)] transition-colors">
-                <f.icon size={22} className="text-[var(--brand-amber)] group-hover:text-[var(--brand-navy)] transition-colors" aria-hidden="true" />
+              {/* Hover gradient */}
+              <div className="absolute inset-0 bg-linear-to-br from-(--brand-amber)/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400 rounded-2xl" />
+
+              <div className="relative z-10">
+                <div className="w-14 h-14 rounded-2xl bg-(--brand-navy) flex items-center justify-center mb-6 group-hover:bg-(--brand-amber) transition-colors duration-300 shadow-lg shadow-black/10">
+                  <f.icon size={24} className="text-(--brand-amber) group-hover:text-(--brand-navy) transition-colors duration-300" aria-hidden="true" />
+                </div>
+                <h3 className="font-serif text-xl font-bold text-(--brand-navy) mb-3">{f.title}</h3>
+                <p className="text-muted-foreground leading-relaxed font-sans text-sm">{f.desc}</p>
               </div>
-              <h3 className="font-serif text-xl font-bold text-[var(--brand-navy)] mb-3">{f.title}</h3>
-              <p className="text-muted-foreground leading-relaxed font-sans text-sm">{f.desc}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
 
         {/* CTA strip */}
-        <div className="mt-16 rounded-xl bg-[var(--brand-navy)] p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div>
-            <h3 className="font-serif text-2xl md:text-3xl font-bold text-white mb-2 text-balance">
-              {"{{ why_us_cta_heading }}"}
-            </h3>
-            <p className="text-white/70 font-sans leading-relaxed">
-              {"{{ why_us_cta_subtext }}"}
-            </p>
+        <AnimateOnScroll delay={0.1}>
+          <div className="mt-14 rounded-2xl bg-linear-to-br from-(--brand-navy) to-(--brand-navy-dark) p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl shadow-black/20 border border-white/5">
+            <div>
+              <h3 className="font-serif text-2xl md:text-3xl font-bold text-white mb-2 text-balance">
+                {"{{ why_us_cta_heading }}"}
+              </h3>
+              <p className="text-white/65 font-sans leading-relaxed">
+                {"{{ why_us_cta_subtext }}"}
+              </p>
+            </div>
+            <a
+              href="#section-5"
+              onClick={(e) => {
+                e.preventDefault()
+                document.querySelector("#section-5")?.scrollIntoView({ behavior: "smooth" })
+              }}
+              className="shrink-0 px-8 py-4 bg-(--brand-amber) text-(--brand-navy) font-bold uppercase tracking-wider text-sm rounded-xl hover:bg-(--brand-amber-light) hover:shadow-lg hover:shadow-(--brand-amber)/30 transition-all duration-300 hover:scale-105 active:scale-95 whitespace-nowrap"
+            >
+              {"{{ why_us_cta_button }}"}
+            </a>
           </div>
-          <a
-            href="#section-5"
-            onClick={(e) => {
-              e.preventDefault()
-              document.querySelector("#section-5")?.scrollIntoView({ behavior: "smooth" })
-            }}
-            className="shrink-0 px-8 py-4 bg-[var(--brand-amber)] text-[var(--brand-navy)] font-bold uppercase tracking-wider text-sm rounded hover:bg-[var(--brand-amber-light)] transition-all whitespace-nowrap"
-          >
-            {"{{ why_us_cta_button }}"}
-          </a>
-        </div>
+        </AnimateOnScroll>
       </div>
     </section>
   )
