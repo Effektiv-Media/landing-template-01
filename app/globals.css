@@ -143,10 +143,10 @@
 
 @layer utilities {
   .section-heading-eyebrow {
-    @apply text-[var(--brand-amber)] text-sm uppercase tracking-[0.2em] font-medium font-sans;
+    @apply text-(--brand-amber) text-sm uppercase tracking-[0.2em] font-medium font-sans;
   }
   .section-heading {
-    @apply font-serif text-3xl md:text-4xl font-bold text-[var(--brand-navy)] mt-3 mb-5 text-balance;
+    @apply font-serif text-3xl md:text-4xl font-bold text-(--brand-navy) mt-3 mb-5 text-balance;
   }
   .section-subheading {
     @apply text-muted-foreground max-w-2xl mx-auto leading-relaxed font-sans text-pretty;
