@@ -61,15 +61,12 @@ export default function Navbar() {
         <a
           href="#section-1"
           onClick={(e) => { e.preventDefault(); handleNavClick("#section-1") }}
-          className="flex flex-col group min-w-0 overflow-hidden"
-          aria-label="{{ company_name }} – {{ nav_home_aria_label }}"
+          aria-label="{{ nav_home_aria_label }}"
         >
-          <span className="font-serif text-xl font-bold text-white leading-tight tracking-tight group-hover:text-(--brand-amber) transition-colors duration-300 truncate">
-            {"{{ company_name }}"}
-          </span>
-          <span className="text-(--brand-amber) text-xs uppercase tracking-wider font-sans truncate">
-            {"{{ company_tagline }}"}
-          </span>
+          {/* Replace with your logo image, e.g. <Image src="/logo.svg" alt="Logo" width={120} height={40} /> */}
+          <div className="h-10 w-32 rounded-md bg-white/15 flex items-center justify-center text-white/40 text-xs font-sans tracking-wider">
+            LOGO
+          </div>
         </a>
 
         {/* Desktop nav */}
